@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155462787565",
+    "project_id": "pawesome-pets-ecec5",
+    "storage_bucket": "pawesome-pets-ecec5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155462787565:android:ab558fa47fa0dcb967c7e4",
+        "android_client_info": {
+          "package_name": "pt.ua.deti.icm.pawesomepets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqjaImMhoe5Decg-G733SfnSV4a7vUz14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
