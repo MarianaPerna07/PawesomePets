@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "155462787565",
-    "project_id": "pawesome-pets-ecec5",
-    "storage_bucket": "pawesome-pets-ecec5.appspot.com"
+    "project_number": "200246858625",
+    "project_id": "pawesomepets-icm",
+    "storage_bucket": "pawesomepets-icm.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:155462787565:android:ab558fa47fa0dcb967c7e4",
+        "mobilesdk_app_id": "1:200246858625:android:8d8d11bb2ce2a1c9140e80",
         "android_client_info": {
           "package_name": "pt.ua.deti.icm.pawesomepets"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "200246858625-fif3o0ks65ljkosmjurff5gjj2d90cil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pt.ua.deti.icm.pawesomepets",
+            "certificate_hash": "beeaf1b4b734d80f839dba90b69572872263f549"
+          }
+        },
+        {
+          "client_id": "200246858625-t5br3lp6gujs97t949lmlacrbavcp9ki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCqjaImMhoe5Decg-G733SfnSV4a7vUz14"
+          "current_key": "AIzaSyDn8zlvdhBOFlbWu7SXBlD9SFeIZqCqF4k"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200246858625-t5br3lp6gujs97t949lmlacrbavcp9ki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
