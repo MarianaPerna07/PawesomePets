@@ -1,5 +1,10 @@
 package pt.ua.deti.icm.pawesomepets.ui.screens
 
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -11,6 +16,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -28,19 +34,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BackHand
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Logout
-import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -59,7 +56,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -70,24 +66,36 @@ import pt.ua.deti.icm.pawesomepets.ui.states.DogsListUiState
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 
-import androidx.compose.ui.platform.LocalContext
-
 import pt.ua.deti.icm.pawesomepets.R
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.QrCode
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import pt.ua.deti.icm.pawesomepets.navigation.listOfNavItems
+import pt.ua.deti.icm.pawesomepets.Graph.repository
+import pt.ua.deti.icm.pawesomepets.ui.bottomNavigation.listOfNavItems
 
-import pt.ua.deti.icm.pawesomepets.screens.HomeScreen
-import pt.ua.deti.icm.pawesomepets.screens.MapScreen
-import pt.ua.deti.icm.pawesomepets.screens.ProfileScreen
-import pt.ua.deti.icm.pawesomepets.navigation.Screens
+import pt.ua.deti.icm.pawesomepets.ui.bottomNavigation.Screens
+import pt.ua.deti.icm.pawesomepets.ui.navigation.addPetScreen
+import pt.ua.deti.icm.pawesomepets.ui.navigation.addPetScreenRoute
+import pt.ua.deti.icm.pawesomepets.ui.navigation.petScreen
+import pt.ua.deti.icm.pawesomepets.ui.navigation.petScreenRoute
+import pt.ua.deti.icm.pawesomepets.ui.navigation.qrCodeScreen
+import pt.ua.deti.icm.pawesomepets.ui.navigation.qrCodeScreenRoute
+import pt.ua.deti.icm.pawesomepets.ui.navigation.qrCodeGeneratorScreen
+import pt.ua.deti.icm.pawesomepets.ui.navigation.qrCodeGeneratorScreenRoute
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -158,13 +166,22 @@ fun DogsListScreen(
             })
 
         // AQUI QUERO O NOVO CÓDIGO
-        //val context = LocalContext.current
-        //Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-        //    Button(onClick = { createNotification(context) }) {
-        //        Text(text = "Get Notification")
-        //
-        //    }
-        //}
+
+        val context = LocalContext.current
+
+        Row(
+            modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxWidth()
+                .padding(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            NotificationButton(
+                icon = Icons.Default.Notifications,
+                contentDescription = "Notification",
+                onClick = { createNotification(context) }
+            )
+        }
 
         AppNavigation()
 
@@ -235,34 +252,10 @@ fun DogsListScreen(
     }
 }
 
-fun createNotification(context: Context) {
-    val CHANNEL_ID = "1234"
-    val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-        .setSmallIcon(R.drawable.notification_lx)
-        .setContentTitle("Notification Title")
-        .setContentText("Description of Notification")
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        .setAutoCancel(true)
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val name = "MYCHANNEL"
-        val desc = "Channel_Desc"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-            description = desc
-        }
-
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-    }
-
-    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    notificationManager.notify(0, builder.build())
-}
-
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val context = LocalContext.current
 
     Scaffold (
         bottomBar = {
@@ -306,15 +299,78 @@ fun AppNavigation() {
                 .padding(paddingValues)
         ) {
             composable(route = Screens.HomeScreen.name ) {
-                HomeScreen()
+                HomeScreen(
+                    onNewPetClick = {
+                        navController.navigate(addPetScreenRoute)
+                    },
+                    onPetClick = {
+                        navController.navigate(petScreenRoute)
+                    },
+                    onQRCodeClick = {
+                        navController.navigate(qrCodeScreenRoute)
+                    },
+                    onGenerateQRCodeClick = {
+                        navController.navigate(qrCodeGeneratorScreenRoute)
+                    }
+                )
             }
             composable(route = Screens.ProfileScreen.name ) {
                 ProfileScreen()
             }
             composable(route = Screens.MapScreen.name ) {
-                MapScreen()
+                MapScreen(context = context)
             }
+            addPetScreen(repository = repository, onPetAdded = {
+                navController.popBackStack()
+            })
+            petScreen()
+            qrCodeScreen()
+            qrCodeGeneratorScreen()
         }
     }
 
 }
+
+@Composable
+fun NotificationButton(
+    icon: ImageVector,
+    contentDescription: String,
+    onClick: () -> Unit
+) {
+    Button(onClick = onClick) {
+        Icon(
+            icon,
+            contentDescription = contentDescription,
+            Modifier
+                .clip(CircleShape)
+                .padding(1.dp)
+        )
+    }
+}
+
+
+fun createNotification(context: Context) {
+    val CHANNEL_ID = "1234"
+    val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+        .setSmallIcon(R.drawable.notification_lx)
+        .setContentTitle("What does one flea say to another flea?")
+        .setContentText("Shall we walk or wait for the dog?")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setAutoCancel(true)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val name = "MYCHANNEL"
+        val desc = "Channel_Desc"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            description = desc
+        }
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    notificationManager.notify(0, builder.build())
+}
+

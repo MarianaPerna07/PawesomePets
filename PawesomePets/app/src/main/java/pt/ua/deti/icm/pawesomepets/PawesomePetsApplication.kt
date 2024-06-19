@@ -13,6 +13,9 @@ class PawesomePetsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        Graph.provide(this)
+
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@PawesomePetsApplication)
@@ -23,4 +26,6 @@ class PawesomePetsApplication : Application() {
             )
         }
     }
+
+
 }

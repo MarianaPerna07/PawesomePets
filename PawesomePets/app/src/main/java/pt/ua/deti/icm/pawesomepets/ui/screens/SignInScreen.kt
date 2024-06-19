@@ -58,6 +58,7 @@ fun SignInScreen(
         modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .background(color = MaterialTheme.colorScheme.surface)
     ) {
         val isError = uiState.error != null
         AnimatedVisibility(visible = isError) {
@@ -94,7 +95,7 @@ fun SignInScreen(
                 tint = MaterialTheme.colorScheme.onPrimary
             )
             Spacer(modifier = Modifier.size(16.dp))
-            Text(text = "Pawesome Pets", style = Typography.titleLarge)
+            Text(text = "Pawesome Pets", style = Typography.titleLarge, color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.size(16.dp))
             val textFieldModifier = Modifier
                 .fillMaxWidth(0.8f)

@@ -116,5 +116,25 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
+    // CameraX
+    implementation("androidx.camera:camera-camera2:1.3.4")
+    implementation("androidx.camera:camera-lifecycle:1.3.4")
+    implementation("androidx.camera:camera-view:1.3.4")
 
+    // Zxing
+    implementation("com.google.zxing:core:3.3.3")
+
+    // Qr code generator
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("network.chaintech:qr-kit:1.0.4")
+
+    // Android Maps Compose composables for the Maps SDK for Android
+    implementation ("com.google.maps.android:maps-compose:4.4.1")
+
+    // google map services
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    // google maps utils
+    implementation("com.google.maps.android:android-maps-utils:3.4.0")
 }

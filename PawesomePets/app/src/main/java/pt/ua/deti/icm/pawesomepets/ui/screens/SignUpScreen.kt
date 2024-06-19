@@ -19,9 +19,17 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pets
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import pt.ua.deti.icm.pawesomepets.ui.theme.Typography
@@ -36,6 +44,7 @@ fun SignUpScreen(
         modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .padding(top = 50.dp)
     ) {
         AnimatedVisibility(visible = uiState.error != null) {
             uiState.error?.let {
@@ -55,13 +64,6 @@ fun SignUpScreen(
                 }
             }
         }
-        Text(
-            text = "Create a User",
-            Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            style = Typography.titleLarge
-        )
         Column(
             Modifier
                 .fillMaxWidth(0.8f)
@@ -71,6 +73,19 @@ fun SignUpScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Icon(
+                Icons.Default.Pets,
+                contentDescription = "Logo Pawesome Pets",
+                Modifier
+                    .clip(CircleShape)
+                    .size(124.dp)
+                    .background(MaterialTheme.colorScheme.primary, CircleShape)
+                    .padding(8.dp),
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+            Text(text = "Pawesome Pets", style = Typography.titleLarge, color = MaterialTheme.colorScheme.onSurface)
+            Spacer(modifier = Modifier.size(16.dp))
             OutlinedTextField(
                 value = uiState.email,
                 onValueChange = uiState.onEmailChange,
